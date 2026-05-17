@@ -1,7 +1,5 @@
 {
     "@@locale": "ar",
-    "helloWorld": "مرحبا بالعالم!",
-    "@helloWorld": {},
 
     "invalidEmailOrPassword": "بريد إلكتروني أو كلمة مرور غير صحيحة",
     "userDisabled": "تم تعطيل حساب المستخدم",
@@ -31,5 +29,42 @@
     "pleaseEnterYourPhoneNumber": "يرجى إدخال رقم هاتفك",
     "invalidPhoneNumberFormat": "صيغة رقم الهاتف غير صحيحة",
     "pleaseEnterYourAddress": "يرجى إدخال عنوانك",
-    "addressTooShort": "يجب أن يكون العنوان 10 أحرف على الأقل"
+    "addressTooShort": "يجب أن يكون العنوان 10 أحرف على الأقل",
+
+    "userNotFound": "هذا البريد الإلكتروني غير مسجل لدينا.",
+    "networkError": "يرجى التحقق من اتصالك بالإنترنت.",
+    "unknownError": "حدث خطأ غير متوقع، حاول مرة أخرى.",
+    "wrongPassword": "كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى.",
+    "invalidCredential": "البريد الإلكتروني أو كلمة المرور غير صحيحة.",
+    "loginError": "حدث خطأ أثناء تسجيل الدخول، يرجى المحاولة لاحقاً.",
+
+    "or": "أو",
+    "createAnAccountToUnlockAllFeatures": "أنشئ حسابًا لفتح جميع الميزات",
+    "letsGetStarted": "لنبدأ معًا",
+    "email": "البريد الإلكتروني",
+    "enterYourEmail": "أدخل بريدك الإلكتروني",
+    "password": "كلمة المرور",
+    "enterYourPassword": "أدخل كلمة المرور",
+    "name": "الاسم",
+    "enterYourName": "أدخل اسمك",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "confirmYourPassword": "أكد كلمة المرور الخاصة بك",
+    "accountCreatedSuccessfully": "تم إنشاء الحساب بنجاح",
+    "signUp": "إنشاء حساب",
+    "alreadyHaveAnAccount": "لديك حساب بالفعل؟ ",
+    "login": "تسجيل الدخول",
+    "signupwithgoogle": "التسجيل بواسطة جوجل",
+
+    "welcomeBack": "مرحباً بعودتك!",
+    "loginToContinueExploring": "سجل دخولك لمتابعة الاستكشاف",
+    "loggedInSuccessfully": "تم تسجيل الدخول بنجاح",
+    "dontHaveAnAccount": "ليس لديك حساب؟ ",
+    "loginWithGoogle": "تسجيل الدخول بواسطة جوجل",
+
+    "cancel": "إلغاء",
+    "confirm": "تأكيد",
+    "confirmLogout": "تأكيد تسجيل الخروج",
+    "logout": "تسجيل الخروج",
+    "areYouSureYouWantToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "loggedOutSuccessfully": "تم تسجيل الخروج بنجاح"
 }

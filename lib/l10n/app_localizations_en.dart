@@ -9,9 +9,6 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get helloWorld => 'Hello World!';
-
-  @override
   String get invalidEmailOrPassword => 'Invalid email or password';
 
   @override
@@ -101,4 +98,105 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addressTooShort => 'Address must be at least 10 characters';
+
+  @override
+  String get userNotFound => 'This email is not registered.';
+
+  @override
+  String get networkError => 'Please check your internet connection.';
+
+  @override
+  String get unknownError => 'An unexpected error occurred, please try again.';
+
+  @override
+  String get wrongPassword => 'Incorrect password, please try again.';
+
+  @override
+  String get invalidCredential => 'Invalid email or password.';
+
+  @override
+  String get loginError =>
+      'An error occurred during login, please try again later.';
+
+  @override
+  String get or => 'or';
+
+  @override
+  String get createAnAccountToUnlockAllFeatures =>
+      'Create an account to unlock all features';
+
+  @override
+  String get letsGetStarted => 'Let\'s Get Started';
+
+  @override
+  String get email => 'Email';
+
+  @override
+  String get enterYourEmail => 'Enter your email';
+
+  @override
+  String get password => 'Password';
+
+  @override
+  String get enterYourPassword => 'Enter your password';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get enterYourName => 'Enter your name';
+
+  @override
+  String get confirmPassword => 'Confirm Password';
+
+  @override
+  String get confirmYourPassword => 'Confirm your Password';
+
+  @override
+  String get accountCreatedSuccessfully => 'Account created successfully';
+
+  @override
+  String get signUp => 'Sign up';
+
+  @override
+  String get alreadyHaveAnAccount => 'Already have an account? ';
+
+  @override
+  String get login => 'Login';
+
+  @override
+  String get signupwithgoogle => 'Sign up with Google';
+
+  @override
+  String get welcomeBack => 'Welcome Back!';
+
+  @override
+  String get loginToContinueExploring => 'Login to continue exploring';
+
+  @override
+  String get loggedInSuccessfully => 'Logged in successfully';
+
+  @override
+  String get dontHaveAnAccount => 'Don\'t have an account? ';
+
+  @override
+  String get loginWithGoogle => 'Login with Google';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get confirmLogout => 'Confirm Logout';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get areYouSureYouWantToLogout => 'Are you sure you want to logout?';
+
+  @override
+  String get loggedOutSuccessfully => 'Logged out successfully';
 }

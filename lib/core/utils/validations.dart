@@ -49,10 +49,6 @@ String? validatePhone(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourPhoneNumber;
     }
-
-    // ريجيكس مطور:
-    // ^\+? : بيسمح بعلامة الزائد في البداية (اختيارية)
-    // [0-9]{7,15}$ : بيكمل باقي الرقم كأرقام فقط بطول من 7 لـ 15
     final phoneRegExp = RegExp(r"^\+?[0-9]{7,15}$");
 
     if (!phoneRegExp.hasMatch(value)) {

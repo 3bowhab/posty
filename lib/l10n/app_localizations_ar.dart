@@ -9,9 +9,6 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get helloWorld => 'مرحبا بالعالم!';
-
-  @override
   String get invalidEmailOrPassword => 'بريد إلكتروني أو كلمة مرور غير صحيحة';
 
   @override
@@ -100,4 +97,104 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addressTooShort => 'يجب أن يكون العنوان 10 أحرف على الأقل';
+
+  @override
+  String get userNotFound => 'هذا البريد الإلكتروني غير مسجل لدينا.';
+
+  @override
+  String get networkError => 'يرجى التحقق من اتصالك بالإنترنت.';
+
+  @override
+  String get unknownError => 'حدث خطأ غير متوقع، حاول مرة أخرى.';
+
+  @override
+  String get wrongPassword => 'كلمة المرور غير صحيحة، يرجى المحاولة مرة أخرى.';
+
+  @override
+  String get invalidCredential => 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+
+  @override
+  String get loginError => 'حدث خطأ أثناء تسجيل الدخول، يرجى المحاولة لاحقاً.';
+
+  @override
+  String get or => 'أو';
+
+  @override
+  String get createAnAccountToUnlockAllFeatures =>
+      'أنشئ حسابًا لفتح جميع الميزات';
+
+  @override
+  String get letsGetStarted => 'لنبدأ معًا';
+
+  @override
+  String get email => 'البريد الإلكتروني';
+
+  @override
+  String get enterYourEmail => 'أدخل بريدك الإلكتروني';
+
+  @override
+  String get password => 'كلمة المرور';
+
+  @override
+  String get enterYourPassword => 'أدخل كلمة المرور';
+
+  @override
+  String get name => 'الاسم';
+
+  @override
+  String get enterYourName => 'أدخل اسمك';
+
+  @override
+  String get confirmPassword => 'تأكيد كلمة المرور';
+
+  @override
+  String get confirmYourPassword => 'أكد كلمة المرور الخاصة بك';
+
+  @override
+  String get accountCreatedSuccessfully => 'تم إنشاء الحساب بنجاح';
+
+  @override
+  String get signUp => 'إنشاء حساب';
+
+  @override
+  String get alreadyHaveAnAccount => 'لديك حساب بالفعل؟ ';
+
+  @override
+  String get login => 'تسجيل الدخول';
+
+  @override
+  String get signupwithgoogle => 'التسجيل بواسطة جوجل';
+
+  @override
+  String get welcomeBack => 'مرحباً بعودتك!';
+
+  @override
+  String get loginToContinueExploring => 'سجل دخولك لمتابعة الاستكشاف';
+
+  @override
+  String get loggedInSuccessfully => 'تم تسجيل الدخول بنجاح';
+
+  @override
+  String get dontHaveAnAccount => 'ليس لديك حساب؟ ';
+
+  @override
+  String get loginWithGoogle => 'تسجيل الدخول بواسطة جوجل';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get confirm => 'تأكيد';
+
+  @override
+  String get confirmLogout => 'تأكيد تسجيل الخروج';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get areYouSureYouWantToLogout => 'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get loggedOutSuccessfully => 'تم تسجيل الخروج بنجاح';
 }

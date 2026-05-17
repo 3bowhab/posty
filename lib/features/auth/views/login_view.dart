@@ -9,47 +9,49 @@ import 'package:posty/core/utils/custom_text_form_field.dart';
 import 'package:posty/core/utils/dialog_utils.dart';
 import 'package:posty/core/utils/toast_utils.dart';
 import 'package:posty/core/utils/validations.dart';
-import 'package:posty/features/auth/view_model/register_view_model.dart';
+import 'package:posty/features/auth/view_model/login_view_model.dart';
 import 'package:posty/features/auth/widgets/auth_withgoogle_button.dart';
 import 'package:posty/features/auth/widgets/create_or_dont_have_account.dart';
 import 'package:posty/features/auth/widgets/or_row.dart';
 import 'package:posty/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class RegisterView extends StatelessWidget {
-  const RegisterView({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => RegisterViewModel(),
-      child: Consumer<RegisterViewModel>(
+      create: (_) => LoginViewModel(),
+      child: Consumer<LoginViewModel>(
         builder: (context, viewModel, child) {
           return GestureDetector(
             onTap: () => FocusScope.of(context).unfocus(),
             child: Scaffold(
-              body: SafeArea(
-                child: SingleChildScrollView(
-                  padding: 16.horizontalPadding,
-                  child: Form(
-                    key: viewModel.formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildLogo(),
-                        _buildHeaderText(context),
-                        20.verticalSizedBox,
-                        _buildFormFields(context, viewModel),
-                        30.verticalSizedBox,
-                        _buildRegisterButton(context, viewModel),
-                        30.verticalSizedBox,
-                        _buildLoginOption(context),
-                        20.verticalSizedBox,
-                        const OrRow(),
-                        20.verticalSizedBox,
-                        _buildGoogleSignUp(context),
-                        20.verticalSizedBox,
-                      ],
+              body: SingleChildScrollView(
+                child: SafeArea(
+                  child: Padding(
+                    padding: 16.horizontalPadding,
+                    child: Form(
+                      key: viewModel.formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildLogo(),
+                          _buildWelcomeText(context),
+                          20.verticalSizedBox,
+                          _buildFormFields(context, viewModel),
+                          20.verticalSizedBox,
+                          _buildLoginButton(context, viewModel),
+                          30.verticalSizedBox,
+                          _buildSignUpOption(context),
+                          20.verticalSizedBox,
+                          const OrRow(),
+                          20.verticalSizedBox,
+                          _buildGoogleLogin(context),
+                          20.verticalSizedBox,
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -70,19 +72,20 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  Widget _buildHeaderText(BuildContext context) {
+  Widget _buildWelcomeText(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.letsGetStarted,
+          AppLocalizations.of(context)!.welcomeBack,
           style: Theme.of(context).textTheme.headlineMedium!.copyWith(
             color: Theme.of(context).colorScheme.onSecondary,
             fontWeight: FontWeight.bold,
           ),
         ),
+
         Text(
-          AppLocalizations.of(context)!.createAnAccountToUnlockAllFeatures,
+          AppLocalizations.of(context)!.loginToContinueExploring,
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),
@@ -91,24 +94,14 @@ class RegisterView extends StatelessWidget {
     );
   }
 
-  Widget _buildFormFields(BuildContext context, RegisterViewModel viewModel) {
+  Widget _buildFormFields(BuildContext context, LoginViewModel viewModel) {
     return Column(
       children: [
         CustomTextFormField(
-          controller: viewModel.nameController,
-          validator: (value) => Validations().validateName(value, context),
-          hintText: AppLocalizations.of(context)!.enterYourName,
-          labelText: AppLocalizations.of(context)!.name,
-          prefixIcon: Icons.person_outline,
-          keyboardType: TextInputType.name,
-        ),
-
-        16.verticalSizedBox,
-        CustomTextFormField(
           controller: viewModel.emailController,
           validator: (value) => Validations().validateEmail(value, context),
-          labelText: AppLocalizations.of(context)!.email,
           hintText: AppLocalizations.of(context)!.enterYourEmail,
+          labelText: AppLocalizations.of(context)!.email,
           prefixIcon: Icons.email_outlined,
           keyboardType: TextInputType.emailAddress,
         ),
@@ -124,65 +117,47 @@ class RegisterView extends StatelessWidget {
           isPassword: true,
           keyboardType: TextInputType.text,
         ),
-
-        16.verticalSizedBox,
-        CustomTextFormField(
-          controller: viewModel.confirmPasswordController,
-          validator: (value) => Validations().validateConfirmPassword(
-            value,
-            viewModel.passwordController.text,
-            context,
-          ),
-          labelText: AppLocalizations.of(context)!.confirmPassword,
-          hintText: AppLocalizations.of(context)!.confirmYourPassword,
-          prefixIcon: Icons.lock_outline,
-          suffixIcon: Icons.visibility_off_outlined,
-          isPassword: true,
-          keyboardType: TextInputType.text,
-        ),
       ],
     );
   }
 
-  Widget _buildRegisterButton(
-    BuildContext context,
-    RegisterViewModel viewModel,
-  ) {
+  Widget _buildLoginButton(BuildContext context, LoginViewModel viewModel) {
     return CustomButton(
       onPressed: () async {
         DialogUtils.showLoadingDialog(context);
         try {
-          bool success = await viewModel.register(context);
+          bool success = await viewModel.login(context);
           if (!context.mounted) return;
-          Navigator.pop(context); // Close Dialog
+          Navigator.pop(context);
           if (success) {
             ToastUtils.showSuccessToast(
-              AppLocalizations.of(context)!.accountCreatedSuccessfully,
+              AppLocalizations.of(context)!.loggedInSuccessfully,
               context,
             );
             Navigator.pushReplacementNamed(context, AppRoutes.homeView);
           }
         } catch (e) {
-          Navigator.pop(context); // Close Dialog
+          Navigator.pop(context);
           ToastUtils.showErrorToast(e.toString(), context);
         }
       },
-      label: AppLocalizations.of(context)!.signUp,
+      label: AppLocalizations.of(context)!.login,
     );
   }
 
-  Widget _buildLoginOption(BuildContext context) {
+  Widget _buildSignUpOption(BuildContext context) {
     return CreateOrDontHaveAccount(
-      text: AppLocalizations.of(context)!.alreadyHaveAnAccount,
-      textButton: AppLocalizations.of(context)!.login,
-      onTap: () => Navigator.pushReplacementNamed(context, AppRoutes.loginView),
+      text: AppLocalizations.of(context)!.dontHaveAnAccount,
+      textButton: AppLocalizations.of(context)!.signUp,
+      onTap: () =>
+          Navigator.pushReplacementNamed(context, AppRoutes.registerView),
     );
   }
 
-  Widget _buildGoogleSignUp(BuildContext context) {
+  Widget _buildGoogleLogin(BuildContext context) {
     return AuthWithgoogleButton(
-      label: AppLocalizations.of(context)!.signupwithgoogle,
-      toastMessage: AppLocalizations.of(context)!.accountCreatedSuccessfully,
+      label: AppLocalizations.of(context)!.loginWithGoogle,
+      toastMessage: AppLocalizations.of(context)!.loggedInSuccessfully,
     );
   }
 }
