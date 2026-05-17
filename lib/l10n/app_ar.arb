@@ -1,5 +1,35 @@
 {
     "@@locale": "ar",
     "helloWorld": "مرحبا بالعالم!",
-    "@helloWorld": {}
+    "@helloWorld": {},
+
+    "invalidEmailOrPassword": "بريد إلكتروني أو كلمة مرور غير صحيحة",
+    "userDisabled": "تم تعطيل حساب المستخدم",
+    "tooManyRequests": "حاولت عدة مرات. يرجى المحاولة لاحقًا",
+    "checkYourInternetConnection": "تحقق من اتصالك بالإنترنت",
+    "invalidEmail": "بريد إلكتروني غير صحيح",
+    "operationNotAllowed": "هذه العملية غير مسموحة",
+    "emailAlreadyInUse": "البريد الإلكتروني قيد الاستخدام بالفعل",
+    "weakPassword": "كلمة مرور ضعيفة",
+    "requiresRecentLogin": "يتطلب تسجيل دخول حديث",
+    "credentialAlreadyInUse": "بيانات اعتماد قيد الاستخدام بالفعل",
+    "accountExistsWithDifferentCredential": "الحساب موجود ببيانات اعتماد مختلفة",
+    "requestTimeout": "انتهت مهلة الطلب",
+    "sessionExpired": "انتهت جلستك",
+    "anErrorOccurredPleaseTryAgain": "حدث خطأ ما. يرجى المحاولة مرة أخرى",
+
+    "pleaseEnterYourName": "يرجى إدخال اسمك",
+    "nameMustBeAtLeast3Characters": "يجب أن يكون الاسم 3 أحرف على الأقل",
+    "pleaseEnterYourEmail": "يرجى إدخال بريدك الإلكتروني",
+    "invalidEmailFormat": "صيغة البريد الإلكتروني غير صحيحة",
+    "pleaseEnterYourPassword": "يرجى إدخال كلمة المرور الخاصة بك",
+    "passwordMustBeAtLeast8Characters": "يجب أن تكون كلمة المرور 8 أحرف على الأقل",
+    "mustContainAtLeastOneUppercaseLetter": "يجب أن تحتوي على حرف واحد على الأقل بأحرف كبيرة",
+    "mustContainAtLeastOneNumber": "يجب أن تحتوي على رقم واحد على الأقل",
+    "pleaseConfirmYourPassword": "يرجى تأكيد كلمة المرور الخاصة بك",
+    "passwordsDoNotMatch": "كلمات المرور غير متطابقة",
+    "pleaseEnterYourPhoneNumber": "يرجى إدخال رقم هاتفك",
+    "invalidPhoneNumberFormat": "صيغة رقم الهاتف غير صحيحة",
+    "pleaseEnterYourAddress": "يرجى إدخال عنوانك",
+    "addressTooShort": "يجب أن يكون العنوان 10 أحرف على الأقل"
 }

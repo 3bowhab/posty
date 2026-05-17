@@ -1,14 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:posty/core/constants/app_routes.dart';
 import 'package:posty/core/responsive/responsive_config.dart';
 import 'package:posty/core/theme/app_theme.dart';
 import 'package:posty/features/auth/views/register_view.dart';
+import 'package:posty/firebase_options.dart';
 import 'package:posty/l10n/app_localizations.dart';
 import 'package:posty/providers/language_provider.dart';
 import 'package:posty/providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(
     MultiProvider(
       providers: [
