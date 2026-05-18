@@ -103,25 +103,28 @@ class _PostDetailsViewState extends State<PostDetailsView> {
                     return SliverFillRemaining(
                       hasScrollBody: false,
                       child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.error_outline,
-                              color: AppColors.red,
-                              size: 48,
-                            ),
-                            16.verticalSizedBox,
-                            Text(
-                              _viewModel.errorMessage,
-                              textAlign: TextAlign.center,
-                            ),
-                            16.verticalSizedBox,
-                            ElevatedButton(
-                              onPressed: () => _viewModel.fetchFirstComments(),
-                              child: Text(AppLocalizations.of(context)!.tryAgain),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: 16.horizontalPadding,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.error_outline,
+                                color: AppColors.red,
+                                size: 48,
+                              ),
+                              16.verticalSizedBox,
+                              Text(
+                                _viewModel.errorMessage,
+                                textAlign: TextAlign.center,
+                              ),
+                              16.verticalSizedBox,
+                              ElevatedButton(
+                                onPressed: () => _viewModel.fetchFirstComments(),
+                                child: Text(AppLocalizations.of(context)!.tryAgain),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

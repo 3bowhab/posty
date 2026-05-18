@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:posty/core/constants/app_routes.dart';
 import 'package:posty/core/responsive/responsive_config.dart';
 import 'package:posty/core/theme/app_theme.dart';
@@ -18,6 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Hive.initFlutter();
   final firebaseUser = FirebaseAuth.instance.currentUser;
   final userProvider = UserProvider();
 

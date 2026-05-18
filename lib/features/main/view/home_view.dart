@@ -4,6 +4,7 @@ import 'package:posty/core/extensions/responsive_padding_extension.dart';
 import 'package:posty/core/extensions/responsive_size_extension.dart';
 import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/theme/app_colors.dart';
+import 'package:posty/core/utils/toast_utils.dart';
 import 'package:posty/features/main/view/create_post_view.dart';
 import 'package:posty/features/main/view/post_details_view.dart';
 import 'package:posty/features/main/view_model/home_view_model.dart';
@@ -67,6 +68,16 @@ class _HomeViewState extends State<HomeView> {
         child: ListenableBuilder(
           listenable: _viewModel,
           builder: (context, _) {
+            if (_viewModel.isOffline) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                ToastUtils.showErrorToast(
+                  AppLocalizations.of(context)!.checkYourInternetConnection,
+                  context,
+                );
+                _viewModel.resetOfflineState();
+              });
+            }
+
             switch (_viewModel.state) {
               case HomeState.loading:
                 return const Center(child: CircularProgressIndicator());
