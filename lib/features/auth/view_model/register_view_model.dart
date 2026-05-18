@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:posty/core/utils/firebase_exceptions.dart';
-import 'package:posty/models/user.dart';
+import 'package:posty/models/user_model.dart';
 import 'package:posty/providers/user_provider.dart';
 import 'package:posty/services/firebase_service.dart';
 import 'package:provider/provider.dart';

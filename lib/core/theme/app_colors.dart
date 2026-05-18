@@ -13,7 +13,7 @@ class AppColors {
   static const Color containerColor = Color(0xFFFFFFFF);
   static const Color red = Color(0xFFFF4D4D);
   static const Color titleColor = Color(0xFFE6F4F8);
-  static const Color textColor = Color(0xFF8AA4B5);
+  static const Color textColor = Color(0xFF757575);
   static const Color bodyColorDark = Color(0xFF0E161A);
   static const Color inputBackgroundDark = Color(0xFF152228);
   static const Color containerColorDark = Color(0xFF1A2930);

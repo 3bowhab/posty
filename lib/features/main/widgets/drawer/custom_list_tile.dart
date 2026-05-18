@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:posty/core/constants/app_routes.dart';
 import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
-import 'package:posty/features/main/drawer/custom_drop_down_button.dart';
-import 'package:posty/features/main/drawer/list_tile_row.dart';
+import 'package:posty/features/main/widgets/drawer/custom_drop_down_button.dart';
+import 'package:posty/features/main/widgets/drawer/list_tile_row.dart';
 
 class CustomListTile extends StatefulWidget {
   final List<String> list;

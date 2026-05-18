@@ -53,6 +53,7 @@ class AppTheme {
       onSurfaceVariant: AppColors.textColor,
       onPrimary: AppColors.whiteColor,
       onSecondary: AppColors.firstColorDark,
+      onSecondaryContainer: AppColors.bodyColorDark,
       error: AppColors.red,
     ),
 
@@ -99,6 +100,12 @@ class AppTheme {
         minimumSize: Size(double.infinity, 48.height),
       ),
     ),
+
+    cardTheme: CardThemeData(
+      color: AppColors.containerColor,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
   );
 
   // Dark Theme
@@ -117,6 +124,7 @@ class AppTheme {
       onSurfaceVariant: AppColors.textColor,
       onPrimary: AppColors.bodyColorDark,
       onSecondary: AppColors.firstColor,
+      onSecondaryContainer: AppColors.whiteColor,
       error: AppColors.red,
     ),
 
@@ -160,6 +168,13 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         minimumSize: Size(double.infinity, 48.height),
       ),
+    ),
+
+    cardTheme: CardThemeData(
+      color: AppColors.containerColorDark,
+      surfaceTintColor: AppColors.whiteColor,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
   );
 }
