@@ -137,5 +137,14 @@
   "light": "Light",
   "@light": {},
   "dark": "Dark",
-  "@dark": {}
+  "@dark": {},
+
+  "postDetails": "Post Details",
+  "@postDetails": {},
+  "comments": "Comments",
+  "@comments": {},
+  "tryAgain": "Try Again",
+  "@tryAgain": {},
+  "noComments": "No comments yet.",
+  "@noComments": {}
 }

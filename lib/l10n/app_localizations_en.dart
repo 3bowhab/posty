@@ -211,4 +211,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dark => 'Dark';
+
+  @override
+  String get postDetails => 'Post Details';
+
+  @override
+  String get comments => 'Comments';
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get noComments => 'No comments yet.';
 }

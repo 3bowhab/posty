@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:posty/api/api_constants.dart';
 import 'package:posty/api/api_end_points.dart';
+import 'package:posty/models/comment_model.dart';
 import 'package:posty/models/post_model.dart';
 
 class ApiManager {
@@ -25,6 +26,32 @@ class ApiManager {
 
       final List<dynamic> data = response.data;
       return data.map((json) => PostModel.fromJson(json)).toList();
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        String errorMessage = 'Unknown Error from Server';
+        if (e.response!.data is Map && e.response!.data['message'] != null) {
+          errorMessage = e.response!.data['message'];
+        }
+        throw Exception(errorMessage);
+      } else {
+        throw Exception(e.message ?? 'Network Error');
+      }
+    }
+  }
+
+  Future<List<CommentModel>> getComments({
+    required int postId,
+    required int page,
+    required int limit,
+  }) async {
+    try {
+      final response = await dio.get(
+        ApiEndPoints.getComments,
+        queryParameters: {'postId': postId, '_page': page, '_limit': limit},
+      );
+
+      final List<dynamic> data = response.data;
+      return data.map((json) => CommentModel.fromJson(json)).toList();
     } on DioException catch (e) {
       if (e.response?.data != null) {
         String errorMessage = 'Unknown Error from Server';

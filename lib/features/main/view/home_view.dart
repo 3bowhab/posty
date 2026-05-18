@@ -4,6 +4,7 @@ import 'package:posty/core/extensions/responsive_padding_extension.dart';
 import 'package:posty/core/extensions/responsive_size_extension.dart';
 import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/theme/app_colors.dart';
+import 'package:posty/features/main/view/post_details_view.dart';
 import 'package:posty/features/main/view_model/home_view_model.dart';
 import 'package:posty/features/main/widgets/drawer/custom_drawer.dart';
 
@@ -109,27 +110,39 @@ class _HomeViewState extends State<HomeView> {
 
                     return Padding(
                       padding: 8.verticalPadding,
-                      child: Card(
-                        child: Padding(
-                          padding: 8.allPadding,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                post.title,
-                                style: Theme.of(context).textTheme.titleMedium
-                                    ?.copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.firstColorAlt,
-                                    ),
-                              ),
-                              16.verticalSizedBox,
-                              Text(
-                                post.body,
-                                style: Theme.of(context).textTheme.bodyMedium
-                                    ?.copyWith(color: AppColors.textColor),
-                              ),
-                            ],
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PostDetailsView(post: post),
+                            ),
+                          );
+                        },
+                        child: Card(
+                          child: Padding(
+                            padding: 8.allPadding,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  post.title,
+                                  style: Theme.of(context).textTheme.titleMedium
+                                      ?.copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.firstColorAlt,
+                                      ),
+                                ),
+                                16.verticalSizedBox,
+                                Text(
+                                  post.body,
+                                  maxLines: 3,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(color: AppColors.textColor),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

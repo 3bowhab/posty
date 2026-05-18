@@ -209,4 +209,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dark => 'داكن';
+
+  @override
+  String get postDetails => 'تفاصيل المنشور';
+
+  @override
+  String get comments => 'التعليقات';
+
+  @override
+  String get tryAgain => 'إعادة المحاولة';
+
+  @override
+  String get noComments => 'لا توجد تعليقات بعد.';
 }
