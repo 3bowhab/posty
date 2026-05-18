@@ -76,5 +76,17 @@
     "postDetails": "تفاصيل المنشور",
     "comments": "التعليقات",
     "tryAgain": "إعادة المحاولة",
-    "noComments": "لا توجد تعليقات بعد."
+    "noComments": "لا توجد تعليقات بعد.",
+    "noPostsAvailable": "لا توجد منشورات متاحة حالياً.",
+
+    "createNewPost": "إنشاء منشور جديد",
+    "whatIsOnYourMind": "بِمَ تفكّر اليوم؟",
+    "titleLabel": "العنوان",
+    "titleHint": "اكتب عنوان المنشور هنا",
+    "titleValidationError": "برجاء إدخال عنوان المنشور",
+    "contentLabel": "المحتوى",
+    "contentHint": "اكتب ماذا يدور في ذهنك...",
+    "contentValidationError": "برجاء إدخال محتوى المنشور",
+    "publishNow": "نشر الآن",
+    "postPublishedSuccess": "تم نشر المنشور بنجاح!"
 }

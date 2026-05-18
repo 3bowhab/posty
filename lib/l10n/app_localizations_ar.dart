@@ -221,4 +221,37 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noComments => 'لا توجد تعليقات بعد.';
+
+  @override
+  String get noPostsAvailable => 'لا توجد منشورات متاحة حالياً.';
+
+  @override
+  String get createNewPost => 'إنشاء منشور جديد';
+
+  @override
+  String get whatIsOnYourMind => 'بِمَ تفكّر اليوم؟';
+
+  @override
+  String get titleLabel => 'العنوان';
+
+  @override
+  String get titleHint => 'اكتب عنوان المنشور هنا';
+
+  @override
+  String get titleValidationError => 'برجاء إدخال عنوان المنشور';
+
+  @override
+  String get contentLabel => 'المحتوى';
+
+  @override
+  String get contentHint => 'اكتب ماذا يدور في ذهنك...';
+
+  @override
+  String get contentValidationError => 'برجاء إدخال محتوى المنشور';
+
+  @override
+  String get publishNow => 'نشر الآن';
+
+  @override
+  String get postPublishedSuccess => 'تم نشر المنشور بنجاح!';
 }

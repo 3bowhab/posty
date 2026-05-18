@@ -511,6 +511,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No comments yet.'**
   String get noComments;
+
+  /// No description provided for @noPostsAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'No posts available.'**
+  String get noPostsAvailable;
+
+  /// No description provided for @createNewPost.
+  ///
+  /// In en, this message translates to:
+  /// **'Create New Post'**
+  String get createNewPost;
+
+  /// No description provided for @whatIsOnYourMind.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s on your mind today?'**
+  String get whatIsOnYourMind;
+
+  /// No description provided for @titleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get titleLabel;
+
+  /// No description provided for @titleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write the post title here'**
+  String get titleHint;
+
+  /// No description provided for @titleValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the post title'**
+  String get titleValidationError;
+
+  /// No description provided for @contentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Content'**
+  String get contentLabel;
+
+  /// No description provided for @contentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write what\'s on your mind...'**
+  String get contentHint;
+
+  /// No description provided for @contentValidationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter the post content'**
+  String get contentValidationError;
+
+  /// No description provided for @publishNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Publish Now'**
+  String get publishNow;
+
+  /// No description provided for @postPublishedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Post published successfully!'**
+  String get postPublishedSuccess;
 }
 
 class _AppLocalizationsDelegate

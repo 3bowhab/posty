@@ -4,9 +4,11 @@ import 'package:posty/core/extensions/responsive_padding_extension.dart';
 import 'package:posty/core/extensions/responsive_size_extension.dart';
 import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/theme/app_colors.dart';
+import 'package:posty/features/main/view/create_post_view.dart';
 import 'package:posty/features/main/view/post_details_view.dart';
 import 'package:posty/features/main/view_model/home_view_model.dart';
 import 'package:posty/features/main/widgets/drawer/custom_drawer.dart';
+import 'package:posty/l10n/app_localizations.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -49,6 +51,17 @@ class _HomeViewState extends State<HomeView> {
           height: 100.height,
           fit: BoxFit.contain,
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add_box_outlined),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CreatePostView()),
+              );
+            },
+          ),
+        ],
       ),
       body: SafeArea(
         child: ListenableBuilder(
@@ -79,7 +92,7 @@ class _HomeViewState extends State<HomeView> {
                         16.verticalSizedBox,
                         ElevatedButton(
                           onPressed: () => _viewModel.fetchFirstPosts(),
-                          child: const Text('إعادة المحاولة'),
+                          child: Text(AppLocalizations.of(context)!.tryAgain),
                         ),
                       ],
                     ),
@@ -87,8 +100,8 @@ class _HomeViewState extends State<HomeView> {
                 );
 
               case HomeState.empty:
-                return const Center(
-                  child: Text('لا توجد منشورات متاحة حالياً.'),
+                return Center(
+                  child: Text(AppLocalizations.of(context)!.noPostsAvailable),
                 );
 
               case HomeState.loaded:

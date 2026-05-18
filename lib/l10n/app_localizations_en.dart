@@ -223,4 +223,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noComments => 'No comments yet.';
+
+  @override
+  String get noPostsAvailable => 'No posts available.';
+
+  @override
+  String get createNewPost => 'Create New Post';
+
+  @override
+  String get whatIsOnYourMind => 'What\'s on your mind today?';
+
+  @override
+  String get titleLabel => 'Title';
+
+  @override
+  String get titleHint => 'Write the post title here';
+
+  @override
+  String get titleValidationError => 'Please enter the post title';
+
+  @override
+  String get contentLabel => 'Content';
+
+  @override
+  String get contentHint => 'Write what\'s on your mind...';
+
+  @override
+  String get contentValidationError => 'Please enter the post content';
+
+  @override
+  String get publishNow => 'Publish Now';
+
+  @override
+  String get postPublishedSuccess => 'Post published successfully!';
 }
