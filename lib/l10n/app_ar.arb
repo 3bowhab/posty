@@ -66,5 +66,10 @@
     "confirmLogout": "تأكيد تسجيل الخروج",
     "logout": "تسجيل الخروج",
     "areYouSureYouWantToLogout": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
-    "loggedOutSuccessfully": "تم تسجيل الخروج بنجاح"
+    "loggedOutSuccessfully": "تم تسجيل الخروج بنجاح",
+
+    "theme": "السمة",
+    "language": "اللغة",
+    "light": "فاتح",
+    "dark": "داكن"
 }

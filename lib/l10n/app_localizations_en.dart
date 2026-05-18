@@ -199,4 +199,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loggedOutSuccessfully => 'Logged out successfully';
+
+  @override
+  String get theme => 'Theme';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get light => 'Light';
+
+  @override
+  String get dark => 'Dark';
 }

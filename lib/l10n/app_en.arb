@@ -128,5 +128,14 @@
   "areYouSureYouWantToLogout": "Are you sure you want to logout?",
   "@areYouSureYouWantToLogout": {},
   "loggedOutSuccessfully": "Logged out successfully",
-  "@loggedOutSuccessfully": {}
+  "@loggedOutSuccessfully": {},
+
+  "theme": "Theme",
+  "@theme": {},
+  "language": "Language",
+  "@language": {},
+  "light": "Light",
+  "@light": {},
+  "dark": "Dark",
+  "@dark": {}
 }

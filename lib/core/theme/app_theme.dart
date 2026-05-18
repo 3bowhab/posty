@@ -56,6 +56,15 @@ class AppTheme {
       error: AppColors.red,
     ),
 
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.bodyColor,
+      foregroundColor: AppColors.bodyColorDark,
+      elevation: 0,
+      centerTitle: true,
+      scrolledUnderElevation: 0,
+      surfaceTintColor: Colors.transparent,
+    ),
+
     inputDecorationTheme: InputDecorationThemeData(
       filled: true,
       fillColor: AppColors.inputBackground,
@@ -90,10 +99,7 @@ class AppTheme {
         minimumSize: Size(double.infinity, 48.height),
       ),
     ),
-
-    
   );
-
 
   // Dark Theme
   static ThemeData get darkTheme => ThemeData(
@@ -112,6 +118,14 @@ class AppTheme {
       onPrimary: AppColors.bodyColorDark,
       onSecondary: AppColors.firstColor,
       error: AppColors.red,
+    ),
+
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.bodyColorDark,
+      foregroundColor: AppColors.whiteColor,
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      centerTitle: true,
     ),
 
     inputDecorationTheme: InputDecorationThemeData(
@@ -147,6 +161,5 @@ class AppTheme {
         minimumSize: Size(double.infinity, 48.height),
       ),
     ),
-    
   );
 }
