@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DialogUtils {
-  static void showLoadingDialog(BuildContext context ) {
+  static void showLoadingDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (context) => Center(
-        child: CircularProgressIndicator(),
-      ),
+      barrierDismissible: false,
+      builder: (context) => const Center(child: CircularProgressIndicator()),
     );
   }
 }

@@ -2,28 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:posty/l10n/app_localizations.dart';
 
 class Validations {
-  String? validateName(String? value, BuildContext context) {
+  static String? validateName(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourName;
     }
-    if (value.length < 3) return AppLocalizations.of(context)?.nameMustBeAtLeast3Characters;
+    if (value.length < 3) {
+      return AppLocalizations.of(context)?.nameMustBeAtLeast3Characters;
+    }
     return null;
   }
 
-  String? validateEmail(String? value, BuildContext context) {
+  static String? validateEmail(String? value, BuildContext context) {
     final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourEmail;
     }
-    if (!emailRegExp.hasMatch(value)) return AppLocalizations.of(context)?.invalidEmailFormat;
+    if (!emailRegExp.hasMatch(value)) {
+      return AppLocalizations.of(context)?.invalidEmailFormat;
+    }
     return null;
   }
 
-  String? validatePassword(String? value, BuildContext context) {
+  static String? validatePassword(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourPassword;
     }
-    if (value.length < 8) return AppLocalizations.of(context)?.passwordMustBeAtLeast8Characters;
+    if (value.length < 8) {
+      return AppLocalizations.of(context)?.passwordMustBeAtLeast8Characters;
+    }
     if (!value.contains(RegExp(r'[A-Z]'))) {
       return AppLocalizations.of(context)?.mustContainAtLeastOneUppercaseLetter;
     }
@@ -33,7 +39,7 @@ class Validations {
     return null;
   }
 
-  String? validateConfirmPassword(
+  static String? validateConfirmPassword(
     String? value,
     String password,
     BuildContext context,
@@ -41,23 +47,24 @@ class Validations {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseConfirmYourPassword;
     }
-    if (value != password) return AppLocalizations.of(context)?.passwordsDoNotMatch;
+    if (value != password) {
+      return AppLocalizations.of(context)?.passwordsDoNotMatch;
+    }
     return null;
   }
 
-String? validatePhone(String? value, BuildContext context) {
+  static String? validatePhone(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourPhoneNumber;
     }
     final phoneRegExp = RegExp(r"^\+?[0-9]{7,15}$");
-
     if (!phoneRegExp.hasMatch(value)) {
       return AppLocalizations.of(context)?.invalidPhoneNumberFormat;
     }
     return null;
   }
 
-  String? validateAddress(String? value, BuildContext context) {
+  static String? validateAddress(String? value, BuildContext context) {
     if (value == null || value.isEmpty) {
       return AppLocalizations.of(context)?.pleaseEnterYourAddress;
     }

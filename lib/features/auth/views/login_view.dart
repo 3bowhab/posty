@@ -106,7 +106,7 @@ class LoginView extends StatelessWidget {
       children: [
         CustomTextFormField(
           controller: viewModel.emailController,
-          validator: (value) => Validations().validateEmail(value, context),
+          validator: (value) => Validations.validateEmail(value, context),
           hintText: localizations.enterYourEmail,
           labelText: localizations.email,
           prefixIcon: Icons.email_outlined,
@@ -115,7 +115,7 @@ class LoginView extends StatelessWidget {
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.passwordController,
-          validator: (value) => Validations().validatePassword(value, context),
+          validator: (value) => Validations.validatePassword(value, context),
           labelText: localizations.password,
           hintText: localizations.enterYourPassword,
           prefixIcon: Icons.lock_outline,

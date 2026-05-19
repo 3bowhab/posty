@@ -104,7 +104,7 @@ class RegisterView extends StatelessWidget {
       children: [
         CustomTextFormField(
           controller: viewModel.nameController,
-          validator: (value) => Validations().validateName(value, context),
+          validator: (value) => Validations.validateName(value, context),
           hintText: localizations.enterYourName,
           labelText: localizations.name,
           prefixIcon: Icons.person_outline,
@@ -113,7 +113,7 @@ class RegisterView extends StatelessWidget {
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.emailController,
-          validator: (value) => Validations().validateEmail(value, context),
+          validator: (value) => Validations.validateEmail(value, context),
           labelText: localizations.email,
           hintText: localizations.enterYourEmail,
           prefixIcon: Icons.email_outlined,
@@ -122,7 +122,7 @@ class RegisterView extends StatelessWidget {
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.passwordController,
-          validator: (value) => Validations().validatePassword(value, context),
+          validator: (value) => Validations.validatePassword(value, context),
           labelText: localizations.password,
           hintText: localizations.enterYourPassword,
           prefixIcon: Icons.lock_outline,
@@ -133,7 +133,7 @@ class RegisterView extends StatelessWidget {
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.confirmPasswordController,
-          validator: (value) => Validations().validateConfirmPassword(
+          validator: (value) => Validations.validateConfirmPassword(
             value,
             viewModel.passwordController.text,
             context,

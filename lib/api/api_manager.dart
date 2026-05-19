@@ -9,7 +9,6 @@ class ApiManager {
   final dio = Dio(
     BaseOptions(
       baseUrl: ApiConstants.baseUrl,
-      queryParameters: {},
       connectTimeout: const Duration(seconds: 10),
       receiveTimeout: const Duration(seconds: 10),
     ),
@@ -28,15 +27,8 @@ class ApiManager {
       final List<dynamic> data = response.data;
       return data.map((json) => PostModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        String errorMessage = 'Unknown Error from Server';
-        if (e.response!.data is Map && e.response!.data['message'] != null) {
-          errorMessage = e.response!.data['message'];
-        }
-        throw Exception(errorMessage);
-      } else {
-        throw Exception(e.message ?? 'Network Error');
-      }
+      _handleDioError(e);
+      rethrow;
     }
   }
 
@@ -54,15 +46,8 @@ class ApiManager {
       final List<dynamic> data = response.data;
       return data.map((json) => CommentModel.fromJson(json)).toList();
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        String errorMessage = 'Unknown Error from Server';
-        if (e.response!.data is Map && e.response!.data['message'] != null) {
-          errorMessage = e.response!.data['message'];
-        }
-        throw Exception(errorMessage);
-      } else {
-        throw Exception(e.message ?? 'Network Error');
-      }
+      _handleDioError(e);
+      rethrow;
     }
   }
 
@@ -85,15 +70,20 @@ class ApiManager {
 
       return newPost;
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        String errorMessage = 'Unknown Error from Server';
-        if (e.response!.data is Map && e.response!.data['message'] != null) {
-          errorMessage = e.response!.data['message'];
-        }
-        throw Exception(errorMessage);
-      } else {
-        throw Exception(e.message ?? 'Network Error');
+      _handleDioError(e);
+      rethrow;
+    }
+  }
+
+  void _handleDioError(DioException e) {
+    if (e.response?.data != null) {
+      String errorMessage = 'Unknown Error from Server';
+      if (e.response!.data is Map && e.response!.data['message'] != null) {
+        errorMessage = e.response!.data['message'];
       }
+      throw Exception(errorMessage);
+    } else {
+      throw Exception(e.message ?? 'Network Error');
     }
   }
 }
