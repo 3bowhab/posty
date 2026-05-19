@@ -18,27 +18,12 @@ class PostDetailsView extends StatefulWidget {
 
 class _PostDetailsViewState extends State<PostDetailsView> {
   late final PostDetailsViewModel _viewModel;
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
     _viewModel = PostDetailsViewModel(postId: widget.post.id);
     _viewModel.fetchFirstComments();
-    _scrollController.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    if (_scrollController.position.pixels >=
-        _scrollController.position.maxScrollExtent * 0.9) {
-      _viewModel.fetchMoreComments();
-    }
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 
   @override
@@ -49,7 +34,6 @@ class _PostDetailsViewState extends State<PostDetailsView> {
       appBar: AppBar(title: Text(localizations.postDetails)),
       body: SafeArea(
         child: CustomScrollView(
-          controller: _scrollController,
           slivers: [
             _buildPostHeaderCard(),
             _buildCommentsSectionTitle(localizations),
@@ -163,24 +147,10 @@ class _PostDetailsViewState extends State<PostDetailsView> {
     return SliverPadding(
       padding: 16.horizontalPadding,
       sliver: SliverList(
-        delegate: SliverChildBuilderDelegate(
-          (context, index) {
-            if (index == _viewModel.comments.length) {
-              return _buildFetchMoreLoader();
-            }
-            return _buildCommentCard(context, _viewModel.comments[index]);
-          },
-          childCount:
-              _viewModel.comments.length + (_viewModel.hasNextPage ? 1 : 0),
-        ),
+        delegate: SliverChildBuilderDelegate((context, index) {
+          return _buildCommentCard(context, _viewModel.comments[index]);
+        }, childCount: _viewModel.comments.length),
       ),
-    );
-  }
-
-  Widget _buildFetchMoreLoader() {
-    return Padding(
-      padding: 16.allPadding,
-      child: const Center(child: CircularProgressIndicator()),
     );
   }
 

@@ -34,13 +34,11 @@ class ApiManager {
 
   Future<List<CommentModel>> getComments({
     required int postId,
-    required int page,
-    required int limit,
   }) async {
     try {
       final response = await dio.get(
         ApiEndPoints.getComments,
-        queryParameters: {'postId': postId, '_page': page, '_limit': limit},
+        queryParameters: {'postId': postId},
       );
 
       final List<dynamic> data = response.data;
