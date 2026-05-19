@@ -224,10 +224,11 @@ Integrated with Firebase services:
 
 Base API: `https://jsonplaceholder.typicode.com`
 
+```markdown id="b4kl19"
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/posts` | Retrieves paginated posts |
-| GET | `/comments` | Retrieves comments for a specific post |
+| GET | `/posts?_page={page}&_limit={limit}` | Retrieves paginated posts |
+| GET | `/comments?postId={id}` | Retrieves comments for a specific post |
 | POST | `/posts` | Creates a new post |
 
 ---
@@ -249,6 +250,26 @@ Base API: `https://jsonplaceholder.typicode.com`
 | `title` | String | Post title |
 | `body` | String | Post content |
 | `userId` | int | Author identifier |
+
+---
+
+### Example Requests
+
+| Endpoint | Example Request |
+|---|---|
+| `GET /posts` | `https://jsonplaceholder.typicode.com/posts?_page=1&_limit=2` |
+| `GET /comments` | `https://jsonplaceholder.typicode.com/comments?postId=1` |
+| `POST /posts` | `https://jsonplaceholder.typicode.com/posts` |
+
+---
+
+### Example Responses
+
+| Endpoint | Example Response |
+|---|---|
+| `GET /posts` | `[ { "id": 1, "title": "...", "body": "...", "userId": 1 } ]` |
+| `GET /comments` | `[ { "postId": 1, "id": 1, "name": "...", "email": "...", "body": "..." } ]` |
+| `POST /posts` | `{ "id": 101, "title": "foo", "body": "bar", "userId": 1 }` |
 
 ---
 
