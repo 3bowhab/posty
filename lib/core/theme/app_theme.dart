@@ -32,6 +32,11 @@ class AppTheme {
       surfaceTintColor: Colors.transparent,
     ),
 
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.firstColor,
+      foregroundColor: AppColors.whiteColor,
+    ),
+
     inputDecorationTheme: InputDecorationThemeData(
       filled: true,
       fillColor: AppColors.inputBackground,
@@ -100,6 +105,11 @@ class AppTheme {
       elevation: 0,
       scrolledUnderElevation: 0,
       centerTitle: true,
+    ),
+
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.firstColorAlt,
+      foregroundColor: AppColors.whiteColor,
     ),
 
     inputDecorationTheme: InputDecorationThemeData(

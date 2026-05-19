@@ -19,8 +19,6 @@ class HomeViewModel extends ChangeNotifier {
   bool _hasNextPage = true;
   bool _isFetchingMore = false;
   bool _isOffline = false;
-
-  // متغير للبحث
   String _searchQuery = '';
 
   List<PostModel> get posts => _posts;
@@ -30,7 +28,6 @@ class HomeViewModel extends ChangeNotifier {
   bool get hasNextPage => _hasNextPage;
   bool get isOffline => _isOffline;
 
-  // جيتر يرجع البوستات المفلترة بناءً على كلمة البحث (في العنوان أو المحتوى)
   List<PostModel> get filteredPosts {
     if (_searchQuery.isEmpty) {
       return _posts;
@@ -42,7 +39,6 @@ class HomeViewModel extends ChangeNotifier {
     }).toList();
   }
 
-  // ميثود لتحديث كلمة البحث وإعادة بناء الـ UI
   void updateSearchQuery(String query) {
     _searchQuery = query;
     notifyListeners();
@@ -89,7 +85,6 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   Future<void> fetchMorePosts() async {
-    // نوقف الباجينيشن لو المستخدم بيبحث حالياً عشان ما تتدخلش الداتا في بعضها
     if (_isFetchingMore ||
         !_hasNextPage ||
         _state == HomeState.loading ||

@@ -23,7 +23,6 @@ class _HomeViewState extends State<HomeView> {
   final HomeViewModel _viewModel = HomeViewModel();
   final ScrollController _scrollController = ScrollController();
 
-  // متغير لمعرفة هل حالة البحث مفتوحة أم لا
   bool _isSearching = false;
   final TextEditingController _searchController = TextEditingController();
 
@@ -80,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
                 if (_isSearching) {
                   _isSearching = false;
                   _searchController.clear();
-                  _viewModel.updateSearchQuery(''); // تصغير البحث عند الإغلاق
+                  _viewModel.updateSearchQuery('');
                 } else {
                   _isSearching = true;
                 }
@@ -89,10 +88,8 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      // إضافة زرار إنشاء بوست جديد هنا كـ Floating Action Button
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.firstColorAlt,
-        child: const Icon(Icons.add, color: Colors.white),
+        child: const Icon(Icons.add),
         onPressed: () => _navigateToCreatePost(context),
       ),
       body: SafeArea(
@@ -109,7 +106,6 @@ class _HomeViewState extends State<HomeView> {
               case HomeState.empty:
                 return _buildEmpty(context);
               case HomeState.loaded:
-                // لو البحث مش مطلع نتائج خالص
                 if (_viewModel.filteredPosts.isEmpty) {
                   return Center(child: Text(localizations.noPostsAvailable));
                 }
@@ -167,13 +163,11 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildPostList() {
-    // استخدمنا filteredPosts بدل posts العادية
     final displayPosts = _viewModel.filteredPosts;
 
     return ListView.builder(
       controller: _scrollController,
       padding: 16.horizontalPadding,
-      // يظهر لودر الـ Pagination فقط لو مش بنعمل سيرش حالياً وفي داتا زيادة
       itemCount: displayPosts.length + (_viewModel.isFetchingMore ? 1 : 0),
       itemBuilder: (context, index) {
         if (index == displayPosts.length) {
