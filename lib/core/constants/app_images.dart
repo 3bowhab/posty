@@ -10,4 +10,6 @@ class Assets {
       "assets/images/logo_splash_dark.png";
   static const String imagesLogoSplashLight =
       "assets/images/logo_splash_light.png";
+  static const String imagesLogoWithoutName =
+      "assets/images/logo_without_name.png";
 }
