@@ -5,15 +5,15 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:posty/core/constants/app_routes.dart';
 import 'package:posty/core/responsive/responsive_config.dart';
 import 'package:posty/core/theme/app_theme.dart';
-import 'package:posty/features/auth/views/login_view.dart';
-import 'package:posty/features/auth/views/register_view.dart';
+import 'package:posty/features/auth/view/login_view.dart';
+import 'package:posty/features/auth/view/register_view.dart';
 import 'package:posty/features/main/view/home_view.dart';
 import 'package:posty/firebase_options.dart';
 import 'package:posty/l10n/app_localizations.dart';
 import 'package:posty/providers/language_provider.dart';
 import 'package:posty/providers/theme_provider.dart';
 import 'package:posty/providers/user_provider.dart';
-import 'package:posty/services/prefs_service.dart';
+import 'package:posty/data/services/prefs_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {

@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:posty/api/api_constants.dart';
-import 'package:posty/api/api_end_points.dart';
-import 'package:posty/models/comment_model.dart';
-import 'package:posty/models/post_model.dart';
+import 'package:posty/data/api/api_constants.dart';
+import 'package:posty/data/api/api_end_points.dart';
+import 'package:posty/data/models/comment_model.dart';
+import 'package:posty/data/models/post_model.dart';
 
 class ApiManager {
   final dio = Dio(

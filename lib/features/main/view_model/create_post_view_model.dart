@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posty/api/api_manager.dart';
+import 'package:posty/data/api/api_manager.dart';
 
 enum CreatePostState { idle, loading, success, error }
 

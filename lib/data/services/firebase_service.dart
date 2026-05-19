@@ -1,7 +1,9 @@
+// ignore_for_file: unnecessary_nullable_for_final_variable_declarations
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:posty/models/user_model.dart';
+import 'package:posty/data/models/user_model.dart';
 
 class FirebaseService {
   Future<UserCredential?> signInWithGoogle() async {

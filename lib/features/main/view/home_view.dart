@@ -10,7 +10,7 @@ import 'package:posty/features/main/view/post_details_view.dart';
 import 'package:posty/features/main/view_model/home_view_model.dart';
 import 'package:posty/features/main/widgets/drawer/custom_drawer.dart';
 import 'package:posty/l10n/app_localizations.dart';
-import 'package:posty/models/post_model.dart';
+import 'package:posty/data/models/post_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});

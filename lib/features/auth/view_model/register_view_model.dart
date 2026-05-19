@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:posty/models/user_model.dart';
-import 'package:posty/services/firebase_service.dart';
+import 'package:posty/data/models/user_model.dart';
+import 'package:posty/data/services/firebase_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final TextEditingController nameController = TextEditingController(

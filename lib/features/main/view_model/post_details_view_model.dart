@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:posty/api/api_manager.dart';
-import 'package:posty/models/comment_model.dart';
+import 'package:posty/data/api/api_manager.dart';
+import 'package:posty/data/models/comment_model.dart';
 
 enum CommentsState { loading, loaded, error, empty }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:posty/api/api_manager.dart';
-import 'package:posty/models/post_model.dart';
+import 'package:posty/data/api/api_manager.dart';
+import 'package:posty/data/models/post_model.dart';
 
 enum HomeState { loading, loaded, error, empty }
 

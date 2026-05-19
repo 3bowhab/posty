@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:posty/models/user_model.dart';
-import 'package:posty/services/firebase_service.dart';
+import 'package:posty/data/models/user_model.dart';
+import 'package:posty/data/services/firebase_service.dart';
 
 class UserProvider extends ChangeNotifier {
   UserModel? currentUser;

@@ -4,8 +4,8 @@ import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/theme/app_colors.dart';
 import 'package:posty/features/main/view_model/post_details_view_model.dart';
 import 'package:posty/l10n/app_localizations.dart';
-import 'package:posty/models/comment_model.dart';
-import 'package:posty/models/post_model.dart';
+import 'package:posty/data/models/comment_model.dart';
+import 'package:posty/data/models/post_model.dart';
 
 class PostDetailsView extends StatefulWidget {
   final PostModel post;

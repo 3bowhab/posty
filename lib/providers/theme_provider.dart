@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:posty/services/prefs_service.dart';
+import 'package:posty/data/services/prefs_service.dart';
 
 class ThemeProvider extends ChangeNotifier {
   ThemeMode currentMode = ThemeMode.system;
