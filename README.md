@@ -224,7 +224,6 @@ Integrated with Firebase services:
 
 Base API: `https://jsonplaceholder.typicode.com`
 
-```markdown id="b4kl19"
 | Method | Endpoint | Description |
 |---|---|---|
 | GET | `/posts?_page={page}&_limit={limit}` | Retrieves paginated posts |
