@@ -4,18 +4,10 @@ import 'package:posty/data/models/user_model.dart';
 import 'package:posty/data/services/firebase_service.dart';
 
 class RegisterViewModel extends ChangeNotifier {
-  final TextEditingController nameController = TextEditingController(
-    text: "Ali",
-  );
-  final TextEditingController emailController = TextEditingController(
-    text: "ali2@gmail.com",
-  );
-  final TextEditingController passwordController = TextEditingController(
-    text: "Password&123",
-  );
-  final TextEditingController confirmPasswordController = TextEditingController(
-    text: "Password&123",
-  );
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool isLoading = false;
