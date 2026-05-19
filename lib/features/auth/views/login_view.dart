@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:posty/core/constants/app_images.dart';
 import 'package:posty/core/constants/app_routes.dart';
@@ -7,13 +8,15 @@ import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/utils/custom_button.dart';
 import 'package:posty/core/utils/custom_text_form_field.dart';
 import 'package:posty/core/utils/dialog_utils.dart';
+import 'package:posty/core/utils/firebase_exceptions.dart';
 import 'package:posty/core/utils/toast_utils.dart';
 import 'package:posty/core/utils/validations.dart';
 import 'package:posty/features/auth/view_model/login_view_model.dart';
-import 'package:posty/features/auth/widgets/auth_withgoogle_button.dart';
+import 'package:posty/features/auth/widgets/auth_with_google_button.dart';
 import 'package:posty/features/auth/widgets/create_or_dont_have_account.dart';
 import 'package:posty/features/auth/widgets/or_row.dart';
 import 'package:posty/l10n/app_localizations.dart';
+import 'package:posty/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginView extends StatelessWidget {
@@ -73,21 +76,23 @@ class LoginView extends StatelessWidget {
   }
 
   Widget _buildWelcomeText(BuildContext context) {
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.welcomeBack,
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
+          localizations.welcomeBack,
+          style: theme.textTheme.headlineMedium!.copyWith(
+            color: theme.colorScheme.onSecondary,
             fontWeight: FontWeight.bold,
           ),
         ),
-
         Text(
-          AppLocalizations.of(context)!.loginToContinueExploring,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          localizations.loginToContinueExploring,
+          style: theme.textTheme.bodyMedium!.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -95,23 +100,24 @@ class LoginView extends StatelessWidget {
   }
 
   Widget _buildFormFields(BuildContext context, LoginViewModel viewModel) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         CustomTextFormField(
           controller: viewModel.emailController,
           validator: (value) => Validations().validateEmail(value, context),
-          hintText: AppLocalizations.of(context)!.enterYourEmail,
-          labelText: AppLocalizations.of(context)!.email,
+          hintText: localizations.enterYourEmail,
+          labelText: localizations.email,
           prefixIcon: Icons.email_outlined,
           keyboardType: TextInputType.emailAddress,
         ),
-
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.passwordController,
           validator: (value) => Validations().validatePassword(value, context),
-          labelText: AppLocalizations.of(context)!.password,
-          hintText: AppLocalizations.of(context)!.enterYourPassword,
+          labelText: localizations.password,
+          hintText: localizations.enterYourPassword,
           prefixIcon: Icons.lock_outline,
           suffixIcon: Icons.visibility_off_outlined,
           isPassword: true,
@@ -123,41 +129,80 @@ class LoginView extends StatelessWidget {
 
   Widget _buildLoginButton(BuildContext context, LoginViewModel viewModel) {
     return CustomButton(
-      onPressed: () async {
-        DialogUtils.showLoadingDialog(context);
-        try {
-          bool success = await viewModel.login(context);
-          if (!context.mounted) return;
-          Navigator.pop(context);
-          if (success) {
-            ToastUtils.showSuccessToast(
-              AppLocalizations.of(context)!.loggedInSuccessfully,
-              context,
-            );
-            Navigator.pushReplacementNamed(context, AppRoutes.homeView);
-          }
-        } catch (e) {
-          Navigator.pop(context);
-          ToastUtils.showErrorToast(e.toString(), context);
-        }
-      },
+      onPressed: () => _handleLoginAction(context, viewModel),
       label: AppLocalizations.of(context)!.login,
     );
   }
 
+  Future<void> _handleLoginAction(
+    BuildContext context,
+    LoginViewModel viewModel,
+  ) async {
+    final localizations = AppLocalizations.of(context)!;
+    try {
+      DialogUtils.showLoadingDialog(context);
+      final uid = await viewModel.login();
+
+      if (!context.mounted) return;
+      Navigator.pop(context);
+
+      if (uid != null) {
+        await context.read<UserProvider>().getUserData(uid);
+        if (!context.mounted) return;
+
+        ToastUtils.showSuccessToast(
+          localizations.loggedInSuccessfully,
+          context,
+        );
+        Navigator.pushReplacementNamed(context, AppRoutes.homeView);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+
+      String errorMessage;
+      switch (e.code) {
+        case 'wrong-password':
+          errorMessage = localizations.wrongPassword;
+          break;
+        case 'user-not-found':
+          errorMessage = localizations.userNotFound;
+          break;
+        case 'invalid-credential':
+          errorMessage = localizations.invalidCredential;
+          break;
+        case 'user-disabled':
+          errorMessage = localizations.userDisabled;
+          break;
+        case 'network-request-failed':
+          errorMessage = localizations.networkError;
+          break;
+        default:
+          errorMessage = FirebaseAuthExceptions.getMessage(e, context);
+      }
+      ToastUtils.showErrorToast(errorMessage, context);
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      ToastUtils.showErrorToast(e.toString(), context);
+    }
+  }
+
   Widget _buildSignUpOption(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return CreateOrDontHaveAccount(
-      text: AppLocalizations.of(context)!.dontHaveAnAccount,
-      textButton: AppLocalizations.of(context)!.signUp,
+      text: localizations.dontHaveAnAccount,
+      textButton: localizations.signUp,
       onTap: () =>
           Navigator.pushReplacementNamed(context, AppRoutes.registerView),
     );
   }
 
   Widget _buildGoogleLogin(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return AuthWithgoogleButton(
-      label: AppLocalizations.of(context)!.loginWithGoogle,
-      toastMessage: AppLocalizations.of(context)!.loggedInSuccessfully,
+      label: localizations.loginWithGoogle,
+      toastMessage: localizations.loggedInSuccessfully,
     );
   }
 }

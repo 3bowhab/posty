@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:posty/core/constants/app_images.dart';
 import 'package:posty/core/constants/app_routes.dart';
@@ -7,13 +8,15 @@ import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 import 'package:posty/core/utils/custom_button.dart';
 import 'package:posty/core/utils/custom_text_form_field.dart';
 import 'package:posty/core/utils/dialog_utils.dart';
+import 'package:posty/core/utils/firebase_exceptions.dart';
 import 'package:posty/core/utils/toast_utils.dart';
 import 'package:posty/core/utils/validations.dart';
 import 'package:posty/features/auth/view_model/register_view_model.dart';
-import 'package:posty/features/auth/widgets/auth_withgoogle_button.dart';
+import 'package:posty/features/auth/widgets/auth_with_google_button.dart';
 import 'package:posty/features/auth/widgets/create_or_dont_have_account.dart';
 import 'package:posty/features/auth/widgets/or_row.dart';
 import 'package:posty/l10n/app_localizations.dart';
+import 'package:posty/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class RegisterView extends StatelessWidget {
@@ -71,20 +74,23 @@ class RegisterView extends StatelessWidget {
   }
 
   Widget _buildHeaderText(BuildContext context) {
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          AppLocalizations.of(context)!.letsGetStarted,
-          style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSecondary,
+          localizations.letsGetStarted,
+          style: theme.textTheme.headlineMedium!.copyWith(
+            color: theme.colorScheme.onSecondary,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          AppLocalizations.of(context)!.createAnAccountToUnlockAllFeatures,
-          style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          localizations.createAnAccountToUnlockAllFeatures,
+          style: theme.textTheme.bodyMedium!.copyWith(
+            color: theme.colorScheme.onSurfaceVariant,
           ),
         ),
       ],
@@ -92,39 +98,38 @@ class RegisterView extends StatelessWidget {
   }
 
   Widget _buildFormFields(BuildContext context, RegisterViewModel viewModel) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         CustomTextFormField(
           controller: viewModel.nameController,
           validator: (value) => Validations().validateName(value, context),
-          hintText: AppLocalizations.of(context)!.enterYourName,
-          labelText: AppLocalizations.of(context)!.name,
+          hintText: localizations.enterYourName,
+          labelText: localizations.name,
           prefixIcon: Icons.person_outline,
           keyboardType: TextInputType.name,
         ),
-
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.emailController,
           validator: (value) => Validations().validateEmail(value, context),
-          labelText: AppLocalizations.of(context)!.email,
-          hintText: AppLocalizations.of(context)!.enterYourEmail,
+          labelText: localizations.email,
+          hintText: localizations.enterYourEmail,
           prefixIcon: Icons.email_outlined,
           keyboardType: TextInputType.emailAddress,
         ),
-
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.passwordController,
           validator: (value) => Validations().validatePassword(value, context),
-          labelText: AppLocalizations.of(context)!.password,
-          hintText: AppLocalizations.of(context)!.enterYourPassword,
+          labelText: localizations.password,
+          hintText: localizations.enterYourPassword,
           prefixIcon: Icons.lock_outline,
           suffixIcon: Icons.visibility_off_outlined,
           isPassword: true,
           keyboardType: TextInputType.text,
         ),
-
         16.verticalSizedBox,
         CustomTextFormField(
           controller: viewModel.confirmPasswordController,
@@ -133,8 +138,8 @@ class RegisterView extends StatelessWidget {
             viewModel.passwordController.text,
             context,
           ),
-          labelText: AppLocalizations.of(context)!.confirmPassword,
-          hintText: AppLocalizations.of(context)!.confirmYourPassword,
+          labelText: localizations.confirmPassword,
+          hintText: localizations.confirmYourPassword,
           prefixIcon: Icons.lock_outline,
           suffixIcon: Icons.visibility_off_outlined,
           isPassword: true,
@@ -149,40 +154,60 @@ class RegisterView extends StatelessWidget {
     RegisterViewModel viewModel,
   ) {
     return CustomButton(
-      onPressed: () async {
-        DialogUtils.showLoadingDialog(context);
-        try {
-          bool success = await viewModel.register(context);
-          if (!context.mounted) return;
-          Navigator.pop(context); // Close Dialog
-          if (success) {
-            ToastUtils.showSuccessToast(
-              AppLocalizations.of(context)!.accountCreatedSuccessfully,
-              context,
-            );
-            Navigator.pushReplacementNamed(context, AppRoutes.homeView);
-          }
-        } catch (e) {
-          Navigator.pop(context); // Close Dialog
-          ToastUtils.showErrorToast(e.toString(), context);
-        }
-      },
+      onPressed: () => _handleRegisterAction(context, viewModel),
       label: AppLocalizations.of(context)!.signUp,
     );
   }
 
+  Future<void> _handleRegisterAction(
+    BuildContext context,
+    RegisterViewModel viewModel,
+  ) async {
+    try {
+      DialogUtils.showLoadingDialog(context);
+      final uid = await viewModel.register();
+
+      if (!context.mounted) return;
+      Navigator.pop(context);
+
+      if (uid != null) {
+        await context.read<UserProvider>().getUserData(uid);
+        if (!context.mounted) return;
+
+        ToastUtils.showSuccessToast(
+          AppLocalizations.of(context)!.accountCreatedSuccessfully,
+          context,
+        );
+        Navigator.pushReplacementNamed(context, AppRoutes.homeView);
+      }
+    } on FirebaseAuthException catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      ToastUtils.showErrorToast(
+        FirebaseAuthExceptions.getMessage(e, context),
+        context,
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      Navigator.pop(context);
+      ToastUtils.showErrorToast(e.toString(), context);
+    }
+  }
+
   Widget _buildLoginOption(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return CreateOrDontHaveAccount(
-      text: AppLocalizations.of(context)!.alreadyHaveAnAccount,
-      textButton: AppLocalizations.of(context)!.login,
+      text: localizations.alreadyHaveAnAccount,
+      textButton: localizations.login,
       onTap: () => Navigator.pushReplacementNamed(context, AppRoutes.loginView),
     );
   }
 
   Widget _buildGoogleSignUp(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     return AuthWithgoogleButton(
-      label: AppLocalizations.of(context)!.signupwithgoogle,
-      toastMessage: AppLocalizations.of(context)!.accountCreatedSuccessfully,
+      label: localizations.signupwithgoogle,
+      toastMessage: localizations.accountCreatedSuccessfully,
     );
   }
 }

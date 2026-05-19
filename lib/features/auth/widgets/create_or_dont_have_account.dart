@@ -5,10 +5,18 @@ class CreateOrDontHaveAccount extends StatelessWidget {
   final String text;
   final String textButton;
   final VoidCallback onTap;
-  const CreateOrDontHaveAccount({super.key, required this.text, required this.textButton, required this.onTap});
+
+  const CreateOrDontHaveAccount({
+    super.key,
+    required this.text,
+    required this.textButton,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Align(
       alignment: Alignment.center,
       child: RichText(
@@ -16,20 +24,19 @@ class CreateOrDontHaveAccount extends StatelessWidget {
           children: [
             TextSpan(
               text: text,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              style: theme.textTheme.bodyMedium!.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
             TextSpan(
               text: textButton,
-              style: Theme.of(context).textTheme.titleMedium!.copyWith(
-                color: Theme.of(context).colorScheme.primary,
+              style: theme.textTheme.titleMedium!.copyWith(
+                color: theme.colorScheme.primary,
                 decoration: TextDecoration.underline,
                 decorationThickness: 2,
-                decorationColor: Theme.of(context).colorScheme.primary,
+                decorationColor: theme.colorScheme.primary,
               ),
-              recognizer: TapGestureRecognizer()
-                ..onTap = onTap,
+              recognizer: TapGestureRecognizer()..onTap = onTap,
             ),
           ],
         ),

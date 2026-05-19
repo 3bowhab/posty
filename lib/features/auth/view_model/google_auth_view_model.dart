@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:posty/models/user_model.dart';
-import 'package:posty/providers/user_provider.dart';
 import 'package:posty/services/firebase_service.dart';
-import 'package:provider/provider.dart';
 
 class GoogleAuthViewModel extends ChangeNotifier {
   bool isLoading = false;
@@ -12,43 +10,33 @@ class GoogleAuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> handleGoogleSignIn(BuildContext context) async {
+  Future<UserModel?> handleGoogleSignIn() async {
     _setLoading(true);
     try {
       final credential = await FirebaseService().signInWithGoogle();
       if (credential == null) {
         _setLoading(false);
-        return;
+        return null;
       }
 
       final userCredential = credential.user;
       if (userCredential == null) throw 'User data not found';
 
-      UserModel? existingUser = await FirebaseService.getUserFromFirestore(
+      UserModel? user = await FirebaseService.getUserFromFirestore(
         userCredential.uid,
       );
 
-      if (existingUser == null) {
-        final newUser = UserModel(
+      if (user == null) {
+        user = UserModel(
           uid: userCredential.uid,
           email: userCredential.email ?? '',
           name: userCredential.displayName ?? '',
         );
-
-        await FirebaseService.addUserToFirestore(newUser);
-
-        if (context.mounted) {
-          context.read<UserProvider>().updateUserData(newUser);
-        }
-
-        _setLoading(false);
-      } else {
-        if (context.mounted) {
-          context.read<UserProvider>().updateUserData(existingUser);
-        }
-
-        _setLoading(false);
+        await FirebaseService.addUserToFirestore(user);
       }
+
+      _setLoading(false);
+      return user;
     } catch (e) {
       _setLoading(false);
       rethrow;

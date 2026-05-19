@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:posty/core/utils/firebase_exceptions.dart';
 import 'package:posty/models/user_model.dart';
-import 'package:posty/providers/user_provider.dart';
 import 'package:posty/services/firebase_service.dart';
-import 'package:provider/provider.dart';
 
 class RegisterViewModel extends ChangeNotifier {
   final TextEditingController nameController = TextEditingController(
@@ -28,8 +25,8 @@ class RegisterViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> register(BuildContext context) async {
-    if (!formKey.currentState!.validate()) return false;
+  Future<String?> register() async {
+    if (!formKey.currentState!.validate()) return null;
 
     _setLoading(true);
     try {
@@ -49,18 +46,11 @@ class RegisterViewModel extends ChangeNotifier {
         ),
       );
 
-      if (!context.mounted) return false;
-
-      await context.read<UserProvider>().getUserData(uid);
-
       _setLoading(false);
-      return true;
-    } on FirebaseAuthException catch (e) {
+      return uid;
+    } on FirebaseAuthException {
       _setLoading(false);
-      if (context.mounted) {
-        throw FirebaseAuthExceptions.getMessage(e, context);
-      }
-      throw 'An error occurred';
+      rethrow;
     } catch (e) {
       _setLoading(false);
       throw e.toString();
