@@ -224,11 +224,11 @@ Integrated with Firebase services:
 
 Base API: `https://jsonplaceholder.typicode.com`
 
-| Method | Endpoint                             | Description           |
-| ------ | ------------------------------------ | --------------------- |
-| GET    | `/posts?_page={page}&_limit={limit}` | Fetch paginated posts |
-| GET    | `/comments?postId={id}`              | Fetch post comments   |
-| POST   | `/posts`                             | Create a new post     |
+| Method | Endpoint | Query Parameters / Body | Description |
+|---|---|---|---|
+| GET | `/posts?_page={page}&_limit={limit}` | `_page` → Page number<br>`_limit` → Items per page | Retrieves paginated posts |
+| GET | `/comments?postId={id}` | `postId` → Target post identifier | Retrieves comments for a specific post |
+| POST | `/posts` | `{ "title": "...", "body": "...", "userId": 1 }` | Creates a new post |
 
 ---
 
