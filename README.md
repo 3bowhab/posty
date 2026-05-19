@@ -21,6 +21,16 @@ Posty demonstrates modern Flutter engineering practices through:
 
 ---
 
+## 🚀 Live Demo & Download
+
+You can download and test the latest production-ready APK directly on your Android device via Firebase App Distribution:
+
+👉 **[Download Posty App (Firebase Distribution)](https://appdistribution.firebase.dev/i/a491030c38786a2b)**
+
+> 💡 **Note:** Clicking the link will invite you to the testers group. You will just need to sign in with your Google account to access the direct download.
+
+---
+
 ## 📱 Application Preview
 
 ### Main Functionalities
