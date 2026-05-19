@@ -1,4 +1,4 @@
-# Posty 🚀
+# Posty
 
 A production-ready, highly responsive Flutter application for seamless post and comment management.
 Built on top of the JSONPlaceholder REST API with a strong focus on scalability, offline-first behavior, and polished UI/UX.
@@ -306,28 +306,11 @@ build/app/outputs/flutter-apk/app-release.apk
 
 ---
 
-# 📸 Future Improvements
-
-* Unit Testing
-* Integration Testing
-* Push Notifications
-* Real Backend Integration
-* CI/CD Pipeline
-* Profile Management
-* Image Upload Support
-
----
-
 # 👨‍💻 Author
 
-**Ali Ibrahim**
+## Ali Ibrahim Abdelwahab
 Flutter Developer
 
-* GitHub: `your-github-link`
-* LinkedIn: `your-linkedin-link`
+- GitHub: [3bowhab](https://github.com/3bowhab)
+- LinkedIn: [Ali Abdelwahab](https://www.linkedin.com/in/aliabdelwahab/)
 
----
-
-# ⭐ If you like this project
-
-Give it a star on GitHub ⭐
