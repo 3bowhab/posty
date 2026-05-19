@@ -23,6 +23,10 @@ class _HomeViewState extends State<HomeView> {
   final HomeViewModel _viewModel = HomeViewModel();
   final ScrollController _scrollController = ScrollController();
 
+  // متغير لمعرفة هل حالة البحث مفتوحة أم لا
+  bool _isSearching = false;
+  final TextEditingController _searchController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -40,25 +44,56 @@ class _HomeViewState extends State<HomeView> {
   @override
   void dispose() {
     _scrollController.dispose();
+    _searchController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Image.asset(
-          Assets.imagesLogoHorizontal,
-          height: 100.height,
-          fit: BoxFit.contain,
-        ),
+        title: _isSearching
+            ? TextField(
+                controller: _searchController,
+                autofocus: true,
+                decoration: InputDecoration(
+                  hintText: localizations.search,
+                  border: InputBorder.none,
+                  hintStyle: const TextStyle(color: Colors.grey),
+                ),
+                style: Theme.of(context).textTheme.bodyLarge,
+                onChanged: (value) => _viewModel.updateSearchQuery(value),
+              )
+            : Image.asset(
+                Assets.imagesLogoHorizontal,
+                height: 100.height,
+                fit: BoxFit.contain,
+              ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.add_box_outlined),
-            onPressed: () => _navigateToCreatePost(context),
+            icon: Icon(_isSearching ? Icons.close : Icons.search),
+            onPressed: () {
+              setState(() {
+                if (_isSearching) {
+                  _isSearching = false;
+                  _searchController.clear();
+                  _viewModel.updateSearchQuery(''); // تصغير البحث عند الإغلاق
+                } else {
+                  _isSearching = true;
+                }
+              });
+            },
           ),
         ],
+      ),
+      // إضافة زرار إنشاء بوست جديد هنا كـ Floating Action Button
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: AppColors.firstColorAlt,
+        child: const Icon(Icons.add, color: Colors.white),
+        onPressed: () => _navigateToCreatePost(context),
       ),
       body: SafeArea(
         child: ListenableBuilder(
@@ -74,6 +109,10 @@ class _HomeViewState extends State<HomeView> {
               case HomeState.empty:
                 return _buildEmpty(context);
               case HomeState.loaded:
+                // لو البحث مش مطلع نتائج خالص
+                if (_viewModel.filteredPosts.isEmpty) {
+                  return Center(child: Text(localizations.noPostsAvailable));
+                }
                 return _buildPostList();
             }
           },
@@ -128,15 +167,19 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildPostList() {
+    // استخدمنا filteredPosts بدل posts العادية
+    final displayPosts = _viewModel.filteredPosts;
+
     return ListView.builder(
       controller: _scrollController,
       padding: 16.horizontalPadding,
-      itemCount: _viewModel.posts.length + (_viewModel.isFetchingMore ? 1 : 0),
+      // يظهر لودر الـ Pagination فقط لو مش بنعمل سيرش حالياً وفي داتا زيادة
+      itemCount: displayPosts.length + (_viewModel.isFetchingMore ? 1 : 0),
       itemBuilder: (context, index) {
-        if (index == _viewModel.posts.length) {
+        if (index == displayPosts.length) {
           return _buildFetchMoreLoader();
         }
-        return _buildPostCard(context, _viewModel.posts[index]);
+        return _buildPostCard(context, displayPosts[index]);
       },
     );
   }

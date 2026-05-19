@@ -518,6 +518,12 @@ abstract class AppLocalizations {
   /// **'No posts available.'**
   String get noPostsAvailable;
 
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search...'**
+  String get search;
+
   /// No description provided for @createNewPost.
   ///
   /// In en, this message translates to:

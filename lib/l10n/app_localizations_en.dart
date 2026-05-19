@@ -228,6 +228,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noPostsAvailable => 'No posts available.';
 
   @override
+  String get search => 'Search...';
+
+  @override
   String get createNewPost => 'Create New Post';
 
   @override

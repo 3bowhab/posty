@@ -226,6 +226,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noPostsAvailable => 'لا توجد منشورات متاحة حالياً.';
 
   @override
+  String get search => 'بحث...';
+
+  @override
   String get createNewPost => 'إنشاء منشور جديد';
 
   @override

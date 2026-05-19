@@ -148,6 +148,8 @@
   "@noComments": {},
   "noPostsAvailable": "No posts available.",
   "@noPostsAvailable": {},
+  "search": "Search...",
+  "@search": {},
 
   "createNewPost": "Create New Post",
   "@createNewPost": {},
