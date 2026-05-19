@@ -6,23 +6,25 @@ class PrefsKeys {
 }
 
 class PrefsService {
-  static Future<void> setDarkMode(bool isDarkMode) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(PrefsKeys.darkModeKey, isDarkMode);
+  static late final SharedPreferences _prefs;
+
+  static Future<void> init() async {
+    _prefs = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> isDarkMode() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(PrefsKeys.darkModeKey) ?? false;
+  static Future<void> setDarkMode(bool isDarkMode) async {
+    await _prefs.setBool(PrefsKeys.darkModeKey, isDarkMode);
+  }
+
+  static bool isDarkMode() {
+    return _prefs.getBool(PrefsKeys.darkModeKey) ?? false;
   }
 
   static Future<void> setEnglish(bool isEnglish) async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setBool(PrefsKeys.englishKey, isEnglish);
+    await _prefs.setBool(PrefsKeys.englishKey, isEnglish);
   }
 
-  static Future<bool> isEnglish() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(PrefsKeys.englishKey) ?? true;
+  static bool isEnglish() {
+    return _prefs.getBool(PrefsKeys.englishKey) ?? true;
   }
-} 
+}

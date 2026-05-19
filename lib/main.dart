@@ -13,6 +13,7 @@ import 'package:posty/l10n/app_localizations.dart';
 import 'package:posty/providers/language_provider.dart';
 import 'package:posty/providers/theme_provider.dart';
 import 'package:posty/providers/user_provider.dart';
+import 'package:posty/services/prefs_service.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -20,13 +21,15 @@ void main() async {
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await Hive.initFlutter();
+  await PrefsService.init();
+
   final firebaseUser = FirebaseAuth.instance.currentUser;
   final userProvider = UserProvider();
 
   if (firebaseUser != null) {
     await userProvider.getUserData(firebaseUser.uid);
   }
-  
+
   runApp(
     MultiProvider(
       providers: [
@@ -52,19 +55,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageProvider = Provider.of<LanguageProvider>(context);
+
     ResponsiveConfig.init(context);
-    
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: Locale(languageProvider.currentLanguage),
-
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.currentMode,
-      
       initialRoute: isLoggedIn ? AppRoutes.homeView : AppRoutes.registerView,
       routes: {
         AppRoutes.registerView: (context) => const RegisterView(),

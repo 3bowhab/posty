@@ -5,11 +5,11 @@ class ThemeProvider extends ChangeNotifier {
   ThemeMode currentMode = ThemeMode.system;
 
   ThemeProvider() {
-    loadTheme();   
+    loadTheme();
   }
 
-  Future<void> loadTheme() async {
-    final isDark = await PrefsService.isDarkMode();
+  void loadTheme() {
+    final isDark = PrefsService.isDarkMode();
     currentMode = isDark ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }

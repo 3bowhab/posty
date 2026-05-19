@@ -5,7 +5,7 @@ class CommentModel {
   final String email;
   final String body;
 
-  CommentModel({
+  const CommentModel({
     required this.postId,
     required this.id,
     required this.name,

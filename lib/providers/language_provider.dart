@@ -8,8 +8,8 @@ class LanguageProvider extends ChangeNotifier {
     loadLanguage();
   }
 
-  Future<void> loadLanguage() async {
-    final isEnglish = await PrefsService.isEnglish();
+  void loadLanguage() {
+    final isEnglish = PrefsService.isEnglish();
     currentLanguage = isEnglish ? 'en' : 'ar';
     notifyListeners();
   }

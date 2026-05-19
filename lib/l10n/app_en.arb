@@ -30,7 +30,6 @@
   "anErrorOccurredPleaseTryAgain": "An error occurred. Please try again.",
   "@anErrorOccurredPleaseTryAgain": {},
 
-
   "pleaseEnterYourName": "Please enter your name",
   "@pleaseEnterYourName": {},
   "nameMustBeAtLeast3Characters": "Name must be at least 3 characters",

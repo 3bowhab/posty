@@ -4,7 +4,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:posty/models/user_model.dart';
 
 class FirebaseService {
-  // Sign in with Google
   Future<UserCredential?> signInWithGoogle() async {
     final GoogleSignIn signIn = GoogleSignIn.instance;
 
@@ -15,11 +14,9 @@ class FirebaseService {
 
     final GoogleSignInAccount? googleUser = await GoogleSignIn.instance
         .authenticate();
-
     if (googleUser == null) return null;
 
     final GoogleSignInAuthentication googleAuth = googleUser.authentication;
-
     final credential = GoogleAuthProvider.credential(
       idToken: googleAuth.idToken,
     );
@@ -32,7 +29,7 @@ class FirebaseService {
         .collection(UserModel.collectionName)
         .withConverter<UserModel>(
           fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
-          toFirestore: (user, _) => user.toFirestore(),
+          toFirestore: (user, _) => user.toJson(),
         );
   }
 

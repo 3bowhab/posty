@@ -4,7 +4,7 @@ class PostModel {
   final String title;
   final String body;
 
-  PostModel({
+  const PostModel({
     required this.userId,
     required this.id,
     required this.title,

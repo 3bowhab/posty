@@ -5,12 +5,8 @@ import 'package:posty/services/firebase_service.dart';
 class UserProvider extends ChangeNotifier {
   UserModel? currentUser;
 
-  Future<void> getUserData(
-    String userId,
-  ) async {
-    currentUser = await FirebaseService.getUserFromFirestore(
-      userId,
-    );
+  Future<void> getUserData(String userId) async {
+    currentUser = await FirebaseService.getUserFromFirestore(userId);
     notifyListeners();
   }
 
