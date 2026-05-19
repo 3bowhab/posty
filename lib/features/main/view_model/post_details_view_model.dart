@@ -64,7 +64,6 @@ class PostDetailsViewModel extends ChangeNotifier {
 
     _isFetchingMore = true;
     notifyListeners();
-
     _page++;
 
     try {

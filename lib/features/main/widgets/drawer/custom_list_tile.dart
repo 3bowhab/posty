@@ -38,10 +38,7 @@ class _CustomListTileState extends State<CustomListTile> {
     return ListTile(
       title: Column(
         children: [
-          ListTileRow(
-            icon: widget.icon,
-            title: widget.title,
-          ),
+          ListTileRow(icon: widget.icon, title: widget.title),
           8.verticalSizedBox,
           CustomDropDownButton(
             value: dropdownValue,
@@ -61,5 +58,3 @@ class _CustomListTileState extends State<CustomListTile> {
     );
   }
 }
-
-

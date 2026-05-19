@@ -48,9 +48,7 @@ class HomeViewModel extends ChangeNotifier {
         _state = HomeState.loaded;
 
         final box = await Hive.openBox(_postsBoxName);
-        final List<Map<String, dynamic>> rawData = fetchedPosts
-            .map((post) => post.toJson())
-            .toList();
+        final rawData = fetchedPosts.map((post) => post.toJson()).toList();
         await box.put(_postsKey, rawData);
 
         if (fetchedPosts.length < _limit) {
@@ -66,7 +64,6 @@ class HomeViewModel extends ChangeNotifier {
         _state = HomeState.error;
       }
     }
-
     notifyListeners();
   }
 
@@ -80,7 +77,6 @@ class HomeViewModel extends ChangeNotifier {
 
     _isFetchingMore = true;
     notifyListeners();
-
     _page++;
 
     try {
@@ -93,9 +89,7 @@ class HomeViewModel extends ChangeNotifier {
         _posts.addAll(fetchedPosts);
 
         final box = await Hive.openBox(_postsBoxName);
-        final List<Map<String, dynamic>> rawData = _posts
-            .map((post) => post.toJson())
-            .toList();
+        final rawData = _posts.map((post) => post.toJson()).toList();
         await box.put(_postsKey, rawData);
 
         if (fetchedPosts.length < _limit) {
@@ -119,14 +113,12 @@ class HomeViewModel extends ChangeNotifier {
       final cachedData = box.get(_postsKey);
 
       if (cachedData != null && cachedData is List) {
-        final List<PostModel> cachedPosts = [];
-        for (var item in cachedData) {
-          if (item is Map) {
-            final Map<String, dynamic> convertedItem =
-                Map<String, dynamic>.from(item);
-            cachedPosts.add(PostModel.fromJson(convertedItem));
-          }
-        }
+        final cachedPosts = cachedData
+            .map(
+              (item) =>
+                  PostModel.fromJson(Map<String, dynamic>.from(item as Map)),
+            )
+            .toList();
 
         if (cachedPosts.isNotEmpty) {
           _posts = cachedPosts;

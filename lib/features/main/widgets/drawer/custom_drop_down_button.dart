@@ -16,33 +16,34 @@ class CustomDropDownButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
+
     return Padding(
       padding: 8.horizontalPadding,
       child: Container(
         padding: 16.horizontalPadding,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
+          border: Border.all(color: theme.colorScheme.onSurfaceVariant),
         ),
         child: DropdownButton<String>(
           value: value,
           icon: const Icon(Icons.arrow_drop_down),
           isExpanded: true,
           underline: const SizedBox(),
-          dropdownColor: Theme.of(context).colorScheme.surface,
+          dropdownColor: theme.colorScheme.surface,
           borderRadius: BorderRadius.circular(8),
-          style: Theme.of(context).textTheme.titleSmall,
+          style: theme.textTheme.titleSmall,
           onChanged: (value) {
             if (value != null) onChanged(value);
           },
           items: list.map((item) {
             String displayedText = item;
             if (item == 'Light') {
-              displayedText = AppLocalizations.of(context)!.light;
+              displayedText = localizations.light;
             } else if (item == 'Dark') {
-              displayedText = AppLocalizations.of(context)!.dark;
+              displayedText = localizations.dark;
             }
 
             return DropdownMenuItem(value: item, child: Text(displayedText));

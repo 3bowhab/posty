@@ -5,22 +5,25 @@ import 'package:posty/core/extensions/responsive_size_extension.dart';
 class SettingWidget extends StatelessWidget {
   final String title;
   final Widget trailing;
+
   const SettingWidget({super.key, required this.title, required this.trailing});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
       height: 48.height,
       padding: 16.horizontalPadding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Theme.of(context).colorScheme.onSurface),
+        border: Border.all(color: theme.colorScheme.onSurface),
       ),
       child: Row(
         children: [
-          Text(title, style: Theme.of(context).textTheme.titleMedium),
-          Spacer(),
+          Text(title, style: theme.textTheme.titleMedium),
+          const Spacer(),
           trailing,
         ],
       ),

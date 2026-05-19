@@ -4,6 +4,7 @@ import 'package:posty/core/extensions/responsive_sized_box_extension.dart';
 class ListTileRow extends StatelessWidget {
   final IconData icon;
   final String title;
+
   const ListTileRow({super.key, required this.icon, required this.title});
 
   @override

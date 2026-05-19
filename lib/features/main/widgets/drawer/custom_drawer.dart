@@ -19,39 +19,17 @@ class CustomDrawer extends StatelessWidget {
     final themeProvider = Provider.of<ThemeProvider>(context);
     final languageProvider = Provider.of<LanguageProvider>(context);
     final userProvider = context.watch<UserProvider>().currentUser;
+    final theme = Theme.of(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Drawer(
-      backgroundColor: Theme.of(context).colorScheme.surface,
+      backgroundColor: theme.colorScheme.surface,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          DrawerHeader(
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  userProvider?.name ?? '',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.whiteColor,
-                  ),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  userProvider?.email ?? '',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium?.copyWith(color: AppColors.whiteColor),
-                ),
-              ],
-            ),
-          ),
+          _buildDrawerHeader(context, theme, userProvider),
           CustomListTile(
-            title: AppLocalizations.of(context)!.theme,
+            title: localizations.theme,
             icon: Icons.format_paint_outlined,
             list: const ['Light', 'Dark'],
             initialValue: themeProvider.currentMode == ThemeMode.light
@@ -63,11 +41,11 @@ class CustomDrawer extends StatelessWidget {
               );
             },
           ),
-          Divider(),
+          const Divider(),
           CustomListTile(
-            title: AppLocalizations.of(context)!.language,
+            title: localizations.language,
             icon: Icons.language,
-            list: ['English', 'العربية'],
+            list: const ['English', 'العربية'],
             initialValue: languageProvider.currentLanguage == 'en'
                 ? 'English'
                 : 'العربية',
@@ -75,60 +53,89 @@ class CustomDrawer extends StatelessWidget {
               languageProvider.changeLanguage(value == 'English' ? 'en' : 'ar');
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
             title: ListTileRow(
               icon: Icons.logout_outlined,
-              title: AppLocalizations.of(context)!.logout,
+              title: localizations.logout,
             ),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (dialogContext) => AlertDialog(
-                  title: Text(AppLocalizations.of(context)!.confirmLogout),
-                  content: Text(
-                    AppLocalizations.of(context)!.areYouSureYouWantToLogout,
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(dialogContext),
-                      child: Text(
-                        AppLocalizations.of(context)!.cancel,
-                        style: Theme.of(context).textTheme.titleMedium,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () async {
-                        Navigator.pop(dialogContext);
+            onTap: () => _showLogoutDialog(context, localizations, theme),
+          ),
+        ],
+      ),
+    );
+  }
 
-                        await FirebaseAuth.instance.signOut();
+  Widget _buildDrawerHeader(
+    BuildContext context,
+    ThemeData theme,
+    dynamic userProvider,
+  ) {
+    return DrawerHeader(
+      decoration: BoxDecoration(color: theme.colorScheme.secondary),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            userProvider?.name ?? '',
+            style: theme.textTheme.titleLarge?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: AppColors.whiteColor,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            userProvider?.email ?? '',
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: AppColors.whiteColor,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
-                        if (context.mounted) {
-                          Navigator.of(context).pushNamedAndRemoveUntil(
-                            AppRoutes.loginView,
-                            (route) => false,
-                          );
-                        }
+  void _showLogoutDialog(
+    BuildContext context,
+    AppLocalizations localizations,
+    ThemeData theme,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(localizations.confirmLogout),
+        content: Text(localizations.areYouSureYouWantToLogout),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: Text(
+              localizations.cancel,
+              style: theme.textTheme.titleMedium,
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(dialogContext);
 
-                        if (context.mounted) {
-                          ToastUtils.showSuccessToast(
-                            AppLocalizations.of(context)!.loggedOutSuccessfully,
-                            context,
-                          );
-                        }
-                      },
-                      child: Text(
-                        AppLocalizations.of(context)!.confirm,
-                        style: Theme.of(context).textTheme.titleMedium
-                            ?.copyWith(
-                              color: Theme.of(context).colorScheme.error,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
+              await FirebaseAuth.instance.signOut();
+
+              if (!context.mounted) return;
+              Navigator.of(
+                context,
+              ).pushNamedAndRemoveUntil(AppRoutes.loginView, (route) => false);
+
+              ToastUtils.showSuccessToast(
+                localizations.loggedOutSuccessfully,
+                context,
               );
             },
+            child: Text(
+              localizations.confirm,
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+            ),
           ),
         ],
       ),

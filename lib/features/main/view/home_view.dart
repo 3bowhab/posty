@@ -10,6 +10,7 @@ import 'package:posty/features/main/view/post_details_view.dart';
 import 'package:posty/features/main/view_model/home_view_model.dart';
 import 'package:posty/features/main/widgets/drawer/custom_drawer.dart';
 import 'package:posty/l10n/app_localizations.dart';
+import 'package:posty/models/post_model.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -55,12 +56,7 @@ class _HomeViewState extends State<HomeView> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_box_outlined),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CreatePostView()),
-              );
-            },
+            onPressed: () => _navigateToCreatePost(context),
           ),
         ],
       ),
@@ -68,115 +64,136 @@ class _HomeViewState extends State<HomeView> {
         child: ListenableBuilder(
           listenable: _viewModel,
           builder: (context, _) {
-            if (_viewModel.isOffline) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                ToastUtils.showErrorToast(
-                  AppLocalizations.of(context)!.checkYourInternetConnection,
-                  context,
-                );
-                _viewModel.resetOfflineState();
-              });
-            }
+            _handleOfflineToast(context);
 
             switch (_viewModel.state) {
               case HomeState.loading:
-                return const Center(child: CircularProgressIndicator());
-
+                return _buildLoading();
               case HomeState.error:
-                return Center(
-                  child: Padding(
-                    padding: 16.allPadding,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.error_outline,
-                          color: AppColors.red,
-                          size: 48,
-                        ),
-                        16.verticalSizedBox,
-                        Text(
-                          _viewModel.errorMessage,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        ),
-                        16.verticalSizedBox,
-                        ElevatedButton(
-                          onPressed: () => _viewModel.fetchFirstPosts(),
-                          child: Text(AppLocalizations.of(context)!.tryAgain),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-
+                return _buildError(context);
               case HomeState.empty:
-                return Center(
-                  child: Text(AppLocalizations.of(context)!.noPostsAvailable),
-                );
-
+                return _buildEmpty(context);
               case HomeState.loaded:
-                return ListView.builder(
-                  controller: _scrollController,
-                  padding: 16.horizontalPadding,
-                  itemCount:
-                      _viewModel.posts.length +
-                      (_viewModel.isFetchingMore ? 1 : 0),
-                  itemBuilder: (context, index) {
-                    if (index == _viewModel.posts.length) {
-                      return const Padding(
-                        padding: EdgeInsets.all(16.0),
-                        child: Center(child: CircularProgressIndicator()),
-                      );
-                    }
-
-                    final post = _viewModel.posts[index];
-
-                    return Padding(
-                      padding: 8.verticalPadding,
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => PostDetailsView(post: post),
-                            ),
-                          );
-                        },
-                        child: Card(
-                          child: Padding(
-                            padding: 8.allPadding,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  post.title,
-                                  style: Theme.of(context).textTheme.titleMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.firstColorAlt,
-                                      ),
-                                ),
-                                16.verticalSizedBox,
-                                Text(
-                                  post.body,
-                                  maxLines: 3,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context).textTheme.bodyMedium
-                                      ?.copyWith(color: AppColors.textColor),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                return _buildPostList();
             }
           },
         ),
       ),
+    );
+  }
+
+  void _handleOfflineToast(BuildContext context) {
+    if (_viewModel.isOffline) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        ToastUtils.showErrorToast(
+          AppLocalizations.of(context)!.checkYourInternetConnection,
+          context,
+        );
+        _viewModel.resetOfflineState();
+      });
+    }
+  }
+
+  Widget _buildLoading() {
+    return const Center(child: CircularProgressIndicator());
+  }
+
+  Widget _buildEmpty(BuildContext context) {
+    return Center(child: Text(AppLocalizations.of(context)!.noPostsAvailable));
+  }
+
+  Widget _buildError(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: 16.allPadding,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.error_outline, color: AppColors.red, size: 48),
+            16.verticalSizedBox,
+            Text(
+              _viewModel.errorMessage,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+            16.verticalSizedBox,
+            ElevatedButton(
+              onPressed: () => _viewModel.fetchFirstPosts(),
+              child: Text(AppLocalizations.of(context)!.tryAgain),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildPostList() {
+    return ListView.builder(
+      controller: _scrollController,
+      padding: 16.horizontalPadding,
+      itemCount: _viewModel.posts.length + (_viewModel.isFetchingMore ? 1 : 0),
+      itemBuilder: (context, index) {
+        if (index == _viewModel.posts.length) {
+          return _buildFetchMoreLoader();
+        }
+        return _buildPostCard(context, _viewModel.posts[index]);
+      },
+    );
+  }
+
+  Widget _buildFetchMoreLoader() {
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Center(child: CircularProgressIndicator()),
+    );
+  }
+
+  Widget _buildPostCard(BuildContext context, PostModel post) {
+    return Padding(
+      padding: 8.verticalPadding,
+      child: GestureDetector(
+        onTap: () => _navigateToPostDetails(context, post),
+        child: Card(
+          child: Padding(
+            padding: 8.allPadding,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  post.title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.firstColorAlt,
+                  ),
+                ),
+                16.verticalSizedBox,
+                Text(
+                  post.body,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: AppColors.textColor),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _navigateToCreatePost(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const CreatePostView()),
+    );
+  }
+
+  void _navigateToPostDetails(BuildContext context, PostModel post) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => PostDetailsView(post: post)),
     );
   }
 }
