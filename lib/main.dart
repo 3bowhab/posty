@@ -63,9 +63,11 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       locale: Locale(languageProvider.currentLanguage),
+
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: themeProvider.currentMode,
+      
       initialRoute: isLoggedIn ? AppRoutes.homeView : AppRoutes.registerView,
       routes: {
         AppRoutes.registerView: (context) => const RegisterView(),
