@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "650182089324",
+    "project_id": "posty-c0c34",
+    "storage_bucket": "posty-c0c34.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:650182089324:android:9d469bd59d98fb0e7e5649",
+        "android_client_info": {
+          "package_name": "com.example.posty"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAu7ln40PI_RJTv7m8TGkHJEftt-xzN9To"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
