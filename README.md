@@ -31,6 +31,14 @@ You can download and test the latest production-ready APK directly on your Andro
 
 ---
 
+### 🎬 Application Demo
+
+Watch the complete walkthrough of the application showcasing the user flow, authentication, offline behavior, and UI interactions:
+
+📺 **[Watch the Demo Video on Google Drive](https://drive.google.com/file/d/1_sUy6LVgTtWVV1hcQfzyeQbe2Bf26yRS/view?usp=drive_link)**
+
+---
+
 ## 📱 Application Preview
 
 ### Main Functionalities
